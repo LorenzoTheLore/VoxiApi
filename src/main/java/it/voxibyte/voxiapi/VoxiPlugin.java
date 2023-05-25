@@ -99,6 +99,12 @@ public abstract class VoxiPlugin extends JavaPlugin {
         return pluginWrapper.getConfigurator();
     }
 
+    /**
+     * Provides access to default configuration of spigot apis
+     *
+     * @return {@link FileConfiguration FileConfiguration} instance provided by spigot
+     * @deprecated use new configuration system instead
+     */
     @Override
     @Deprecated(since = "0.1-SNAPSHOT")
     public FileConfiguration getConfig() {
