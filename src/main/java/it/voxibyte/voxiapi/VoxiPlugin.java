@@ -3,8 +3,11 @@ package it.voxibyte.voxiapi;
 import it.voxibyte.voxiapi.command.VoxiCommand;
 import it.voxibyte.voxiapi.configuration.Configurator;
 import it.voxibyte.voxiapi.exception.VoxiException;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static it.voxibyte.voxiapi.exception.Exceptions.raiseException;
@@ -18,6 +21,7 @@ public abstract class VoxiPlugin extends JavaPlugin {
     private static JavaPlugin javaPlugin;
 
     private PluginWrapper pluginWrapper;
+    private PluginManager pluginManager;
 
     public static JavaPlugin getJavaPlugin() {
         if(javaPlugin == null) raiseException(VoxiException.class, "plugin not loaded yet");
@@ -29,6 +33,7 @@ public abstract class VoxiPlugin extends JavaPlugin {
     public final void onLoad() {
         javaPlugin = this;
         this.pluginWrapper = new PluginWrapper(javaPlugin);
+        this.pluginManager = Bukkit.getPluginManager();
     }
 
     /**
@@ -74,6 +79,15 @@ public abstract class VoxiPlugin extends JavaPlugin {
      */
     public void registerCommand(VoxiCommand<?> voxiCommand) {
         pluginWrapper.registerCommand(voxiCommand);
+    }
+
+    /**
+     * Setup a Bukkit {@link Listener Listener} on the current plugin instance
+     *
+     * @param listener Listener to be registered
+     */
+    public void registerListener(Listener listener) {
+        pluginManager.registerEvents(listener, javaPlugin);
     }
 
     /**
