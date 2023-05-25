@@ -6,6 +6,7 @@ import it.voxibyte.voxiapi.annotation.VoxiConfig;
 import it.voxibyte.voxiapi.configuration.data.ConfigData;
 import it.voxibyte.voxiapi.configuration.io.ConfigReader;
 import it.voxibyte.voxiapi.configuration.io.ConfigWriter;
+import it.voxibyte.voxiapi.exception.InitializationException;
 import it.voxibyte.voxiapi.util.FileUtil;
 import it.voxibyte.voxiapi.util.ReflectionUtil;
 import org.bukkit.plugin.Plugin;
@@ -13,7 +14,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Optional;
+
+import static it.voxibyte.voxiapi.exception.Exceptions.raiseException;
 
 public class BukkitConfigurationStream<T> {
     private final Class<T> configurationClass;
@@ -32,8 +36,8 @@ public class BukkitConfigurationStream<T> {
         if(cachedInstance == null) {
             try {
                 this.cachedInstance = configReader.read(configurationClass);
-            } catch (FileNotFoundException | IllegalAccessException e) {
-                throw new RuntimeException(e);
+            } catch (IllegalAccessException | IOException e) {
+                raiseException(InitializationException.class, "Unable to retrieve instance for " + configurationClass.getName());
             }
         }
 
@@ -44,8 +48,8 @@ public class BukkitConfigurationStream<T> {
         try {
             configWriter.write(instance);
             this.cachedInstance = instance;
-        } catch (IllegalAccessException | FileNotFoundException e) {
-            throw new RuntimeException("Failed to save " + configurationClass.getSimpleName());
+        } catch (IllegalAccessException | IOException e) {
+            raiseException(InitializationException.class, "Unable to save instance for " + configurationClass.getName());
         }
     }
 

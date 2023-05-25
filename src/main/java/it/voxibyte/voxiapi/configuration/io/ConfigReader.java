@@ -9,6 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -19,11 +20,12 @@ public class ConfigReader {
         this.file = file;
     }
 
-    public <T> T read(Class<T> clazz) throws FileNotFoundException, IllegalAccessException {
+    public <T> T read(Class<T> clazz) throws IOException, IllegalAccessException {
         Yaml yaml = YamlUtil.getYaml();
         T instance = ReflectionUtil.obtainInstance(clazz);
 
-        Map<String, Object> values = yaml.load(new FileReader(file));
+        FileReader fileReader = new FileReader(file);
+        Map<String, Object> values = yaml.load(fileReader);
         Map<Field, VoxiField> fields = ReflectionUtil.getAnnotatedFields(clazz, VoxiField.class);
 
         for (Field field : fields.keySet()) {
@@ -33,6 +35,7 @@ public class ConfigReader {
 
             field.set(instance, getValueFromNestedMap(values, path));
         }
+        fileReader.close();
 
         return instance;
     }

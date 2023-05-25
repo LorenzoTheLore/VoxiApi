@@ -8,8 +8,7 @@ import it.voxibyte.voxiapi.util.ReflectionUtil;
 import it.voxibyte.voxiapi.util.YamlUtil;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ public class ConfigWriter {
         this.file = file;
     }
 
-    public <T> void write(T instance) throws IllegalAccessException, FileNotFoundException {
+    public <T> void write(T instance) throws IllegalAccessException, IOException {
         Class<?> configurationClass = instance.getClass();
         Yaml yaml = YamlUtil.getYaml();
 
@@ -35,6 +34,8 @@ public class ConfigWriter {
             serialized.put(fieldData.getPath(), field.get(instance));
         }
 
-        yaml.dump(MapUtil.toNestedMap(serialized), Files.newWriter(file, Charset.defaultCharset()));
+        BufferedWriter fileWriter = Files.newWriter(file, Charset.defaultCharset());
+        yaml.dump(MapUtil.toNestedMap(serialized), fileWriter);
+        fileWriter.close();
     }
 }
