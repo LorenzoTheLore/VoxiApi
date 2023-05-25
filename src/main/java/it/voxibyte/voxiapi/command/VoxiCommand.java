@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 public interface VoxiCommand<T extends CommandSender> {
     boolean execute(T sender, String[] args);
 
-    default void handleNoPermission(CommandSender sender) {
+    default void handleNoPermission(T sender) {
         sender.sendMessage("You have not enough permissions!");
     }
 
