@@ -9,5 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface VoxiField {
     String path() default "";
-    String comments() default "";
 }

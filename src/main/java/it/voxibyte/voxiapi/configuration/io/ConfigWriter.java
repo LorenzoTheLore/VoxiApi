@@ -31,6 +31,7 @@ public class ConfigWriter {
         for(Field field : fields.keySet()) {
             field.setAccessible(true);
             FieldData fieldData = FieldData.of(fields.get(field), field);
+
             serialized.put(fieldData.getPath(), field.get(instance));
         }
 

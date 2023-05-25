@@ -17,9 +17,5 @@ l
 <src/main/java/it/voxibyte/voxiapi/annotation/EntryPoint.java,7\2\72a025a14351cde358e3a04a44cefb415ec9eb31
 k
 ;src/main/java/it/voxibyte/voxiapi/annotation/ExitPoint.java,7\3\73a8d3925536ffbf4acc9a38a0c9ec8373346157
-k
-;src/main/java/it/voxibyte/voxiapi/exception/Exceptions.java,4\2\4288303d07ac1d7074ff027940affa302b6143dc
-n
->src/main/java/it/voxibyte/voxiapi/exception/VoxiException.java,2\4\24c8bf2bdfcd526c3fba6e16759071dbaa5e79f4
 Å
 Qsrc/main/java/it/voxibyte/voxiapi/processing/SpigotPluginAnnotationProcessor.java,8\6\861874214f6818be3d1f5f8bcbc5f557939b78c1
