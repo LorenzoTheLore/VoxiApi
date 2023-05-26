@@ -20,8 +20,8 @@ public class Argumented<T extends CommandSender> {
 
     public Optional<VoxiArgument<T>> findArgument(String name) {
         return argumentList.stream()
-                .findAny()
-                .filter(argument -> argument.getName().equalsIgnoreCase(name));
+                .filter(argument -> argument.getName().equalsIgnoreCase(name))
+                .findAny();
     }
 
     public List<VoxiArgument<T>> getArguments() {
