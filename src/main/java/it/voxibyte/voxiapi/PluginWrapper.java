@@ -54,6 +54,10 @@ public class PluginWrapper {
     private void doEnable() {
         Method enableMethod = getMethodAnnotated(javaPlugin, EntryPoint.class);
         try {
+            if(enableMethod == null) {
+                return;
+            }
+
             enableMethod.invoke(javaPlugin);
         } catch (IllegalAccessException | InvocationTargetException e) {
             raiseException(VoxiException.class, "invalid EntryPoint declared");
@@ -63,6 +67,10 @@ public class PluginWrapper {
     private void doDisable() {
         Method disableMethod = getMethodAnnotated(javaPlugin, ExitPoint.class);
         try {
+            if(disableMethod == null) {
+                return;
+            }
+
             disableMethod.invoke(javaPlugin);
         } catch (IllegalAccessException | InvocationTargetException e) {
             raiseException(VoxiException.class, "invalid ExitPoint declared");
