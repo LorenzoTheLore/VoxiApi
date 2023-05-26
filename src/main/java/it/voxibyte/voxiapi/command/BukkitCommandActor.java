@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class BukkitCommandActor extends Command {
     private final VoxiCommand<?> voxiCommand;
@@ -29,7 +30,7 @@ public class BukkitCommandActor extends Command {
             return true;
         }
 
-        return voxiCommand.execute(getSender(commandSender), strings);
+        return voxiCommand.doExecute(getSender(commandSender), strings);
     }
 
     public <T extends CommandSender> T getSender(CommandSender commandSender) {
