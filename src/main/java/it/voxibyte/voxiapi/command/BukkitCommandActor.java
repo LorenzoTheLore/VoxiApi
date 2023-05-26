@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class BukkitCommandActor extends Command {
@@ -31,6 +32,11 @@ public class BukkitCommandActor extends Command {
         }
 
         return voxiCommand.doExecute(getSender(commandSender), strings);
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+        return voxiCommand.doTabComplete(getSender(sender), args);
     }
 
     public <T extends CommandSender> T getSender(CommandSender commandSender) {

@@ -42,8 +42,6 @@ Bsrc/main/java/it/voxibyte/voxiapi/configuration/data/RootData.java,8\3\83747b3
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-d
-4src/main/java/it/voxibyte/voxiapi/PluginWrapper.java,d\5\d5b7db637fe8a31d3ff356285cf382abba7a7041
 b
 2src/main/java/it/voxibyte/voxiapi/task/Tasker.java,a\1\a126fbf48c582f003dd97f046e803092c2b0db7e
 t
